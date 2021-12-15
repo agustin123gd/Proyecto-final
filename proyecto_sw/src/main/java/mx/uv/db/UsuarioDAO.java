@@ -90,4 +90,47 @@ public class UsuarioDAO {
         }
         return resultado;
     }
+    
+    public List<Usuario> listadoAlumnos() {
+        Statement stm = null;
+        ResultSet rs = null;
+        Connection conn = null;
+        List<Usuario> resultado = new ArrayList<>(); 
+
+        conn = conexion.getConnection();
+        try {
+            String sql = "SELECT * FROM usuario where tipo = 'Alumno' ";
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()){
+                Usuario u = new Usuario(rs.getString("id"), rs.getString("nombre"), rs.getString("correo"), rs.getString("contraseña"), rs.getString("tipo"));
+                resultado.add(u);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (stm != null){
+                try {
+                    stm.close();
+                } catch (SQLException e) {
+                    stm = null;
+                    e.printStackTrace();
+                }
+            }
+            if (rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    rs = null;
+                    e.printStackTrace();
+                }
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultado;
+    }
 }
