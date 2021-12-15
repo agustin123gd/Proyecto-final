@@ -48,7 +48,7 @@ public class RespuestaDAO {
         return msj;
     }
 
-    public List<Respuesta> listadoRespuestas(int idPregunta) {
+    public List<Respuesta> listadoRespuestas() {
         Statement stm = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -56,11 +56,11 @@ public class RespuestaDAO {
 
         conn = conexion.getConnection();
         try {
-            String sql = "SELECT id, respuesta FROM respuesta where idPregunta=" +idPregunta;
+            String sql = "SELECT * FROM respuesta";
             stm = conn.createStatement();
             rs = stm.executeQuery(sql);
             while (rs.next()){
-                Respuesta r = new Respuesta(rs.getInt("id"), 0, rs.getString("respuesta"));
+                Respuesta r = new Respuesta(rs.getInt("id"), rs.getInt("idPregunta"), rs.getString("respuesta"));
                 resultado.add(r);
             }
         } catch (Exception e) {
