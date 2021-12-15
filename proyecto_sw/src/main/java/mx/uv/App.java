@@ -82,7 +82,7 @@ public class App
         get("/cuestionarios",(req,res)->{
             before((req2, res2) -> res.type("application/json"));
             CuestionarioDAO dao = new CuestionarioDAO();
-            return gson.toJson(dao.listadoCuestionario());
+            return gson.toJson(dao.listadoCuestionario(req.queryParams("creador")));
         });
         get("/asignacion",(req,res)->{
             before((req2, res2) -> res.type("application/json"));

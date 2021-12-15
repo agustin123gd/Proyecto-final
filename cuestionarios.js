@@ -1,4 +1,9 @@
-axios.get("http://localhost:4567/cuestionarios")
+var querystring = window.location.search;
+var parametros = new URLSearchParams(querystring);
+
+creador= "Agustin Gutierrez Diaz";//parametros.get("Cuestionario");
+
+axios.get("http://localhost:4567/cuestionarios?creador="+creador)
     .then(function (res) {
         let json = res.data;
         let tablaRespuestas = document.getElementById("tablaCuestionarios");

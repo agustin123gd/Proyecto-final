@@ -46,7 +46,7 @@ public class CuestionarioDAO {
         return msj;
     }
     
-    public List<Cuestionario> listadoCuestionario() {
+    public List<Cuestionario> listadoCuestionario(String creador) {
         Statement stm = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -54,7 +54,7 @@ public class CuestionarioDAO {
 
         conn = conexion.getConnection();
         try {
-            String sql = "SELECT id, nombre FROM cuestionario where creador = 'Agustin Gutierrez Diaz'";
+            String sql = "SELECT id, nombre FROM cuestionario where creador = " + creador;
             stm = conn.createStatement();
             rs = stm.executeQuery(sql);
             while (rs.next()){
