@@ -45,7 +45,48 @@ public class CuestionarioDAO {
         }
         return msj;
     }
-    
+    public List<Cuestionario> listadoCuestionarios() {
+        Statement stm = null;
+        ResultSet rs = null;
+        Connection conn = null;
+        List<Cuestionario> resultado = new ArrayList<>(); 
+
+        conn = conexion.getConnection();
+        try {
+            String sql = "SELECT id, nombre FROM cuestionario";
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()){
+                Cuestionario c = new Cuestionario(rs.getInt("id"), rs.getString("nombre"), "");
+                resultado.add(c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (stm != null){
+                try {
+                    stm.close();
+                } catch (SQLException e) {
+                    stm = null;
+                    e.printStackTrace();
+                }
+            }
+            if (rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    rs = null;
+                    e.printStackTrace();
+                }
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultado;
+    }
     public List<Cuestionario> listadoCuestionario(String creador) {
         Statement stm = null;
         ResultSet rs = null;
