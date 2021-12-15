@@ -66,7 +66,91 @@ public class App
             respuesta.addProperty("status", dao.insertarUsuario(u));
             return respuesta;
         });
+        post("/crearCuestionario", (req, res) -> {
+            System.out.println("Ahí vamos");
+            // Insertamos un nuevo usuario
+            String json = req.body();
+            Cuestionario u = gson.fromJson(json, Cuestionario.class);
+            //usuarios.put(id, u);
+
+            CuestionarioDAO dao = new CuestionarioDAO();
+            JsonObject respuesta = new JsonObject();
+            respuesta.addProperty("status", dao.insertarCuestionario(u));
+            return respuesta;
+        });
+        post("/crearPregunta", (req, res) -> {
+            System.out.println("Ahí vamos");
+            // Insertamos un nuevo usuario
+            String json = req.body();
+            Pregunta u = gson.fromJson(json, Pregunta.class);
+            //usuarios.put(id, u);
+
+            PreguntaDAO dao = new PreguntaDAO();
+            JsonObject respuesta = new JsonObject();
+            respuesta.addProperty("status", dao.insertarPregunta(u));
+            return respuesta;
+        });
+        post("/crearAsignacion", (req, res) -> {
+            System.out.println("Ahí vamos");
+            // Insertamos un nuevo usuario
+            String json = req.body();
+             Asignacion u = gson.fromJson(json, Asignacion.class);
+            //usuarios.put(id, u);
+
+            AsignacionDAO dao = new AsignacionDAO();
+            JsonObject respuesta = new JsonObject();
+            respuesta.addProperty("status", dao.crearAsignacion(u));
+            return respuesta;
+        });
+        post("/crearRespuestaA", (req, res) -> {
+            System.out.println("Ahí vamos");
+            // Insertamos un nuevo usuario
+            String json = req.body();
+            Respuesta u = gson.fromJson(json, Respuesta.class);
+            //usuarios.put(id, u);
+
+            RespuestaDAO dao = new RespuestaDAO();
+            JsonObject respuesta = new JsonObject();
+            respuesta.addProperty("status", dao.insertarRespuesta(u));
+            return respuesta;
+        });
+        post("/crearRespuestaC", (req, res) -> {
+            System.out.println("Ahí vamos");
+            // Insertamos un nuevo usuario
+            String json = req.body();
+            Respuesta u = gson.fromJson(json, Respuesta.class);
+            //usuarios.put(id, u);
+
+            RespuestaDAO dao = new RespuestaDAO();
+            JsonObject respuesta = new JsonObject();
+            respuesta.addProperty("status", dao.insertarRespuesta(u));
+            return respuesta;
+        });
         
+        post("/crearAsignacion", (req, res) -> {
+            System.out.println("Ahí vamos");
+            // Insertamos un nuevo usuario
+            String json = req.body();
+            Asignacion u = gson.fromJson(json, Asignacion.class);
+            //usuarios.put(id, u);
+
+            AsignacionDAO dao = new AsignacionDAO();
+            JsonObject respuesta = new JsonObject();
+            respuesta.addProperty("status", dao.crearAsignacion(u));
+            return respuesta;
+        });
+        
+        post("/validarUsuario", (req, res) -> {
+            // Insertamos un nuevo usuario
+            String json = req.body();
+            Usuario usuario = gson.fromJson(json, Usuario.class);
+            
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            int resultado = usuarioDAO.validarUsuario(usuario);
+            System.out.println(resultado);
+            return resultado;
+    
+        });
         get("/usuarios", (req, res) -> {
             before((req2, res2) -> res.type("application/json"));
             UsuarioDAO dao = new UsuarioDAO();
@@ -83,6 +167,17 @@ public class App
             before((req2, res2) -> res.type("application/json"));
             CuestionarioDAO dao = new CuestionarioDAO();
             return gson.toJson(dao.listadoCuestionario());
+        });
+        
+        get("/cuestionariosp",(req,res)->{
+            before((req2, res2) -> res.type("application/json"));
+            CuestionarioDAO dao = new CuestionarioDAO();
+            return gson.toJson(dao.listadoCuestionarios());
+        });
+        get("/listalumnos",(req,res)->{
+            before((req2, res2) -> res.type("application/json"));
+            UsuarioDAO dao = new UsuarioDAO();
+            return gson.toJson(dao.listadoAlumnos());
         });
         get("/asignacion",(req,res)->{
             before((req2, res2) -> res.type("application/json"));
@@ -122,6 +217,19 @@ public class App
             VideoDao dao = new VideoDao();
             dao.insertarVideo(vi);
             return dao;
+        });
+        
+        post("/crearC", (req, res) -> {
+            // Insertamos un nuevo usuario
+            String json = req.body();
+            Cuestionario c = gson.fromJson(json, Cuestionario.class);
+            //usuarios.put(id, u);
+
+            CuestionarioDAO dao = new CuestionarioDAO();
+            JsonObject respuesta = new JsonObject();
+            System.out.println("Ahí vamos");
+            respuesta.addProperty("status", dao.insertarCuestionario(c));
+            return respuesta;
         });
 
         get("/video",(req,res)->{
